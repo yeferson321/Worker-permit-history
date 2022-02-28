@@ -1,0 +1,138 @@
+if (file_exists($archivo1)) {
+
+                    if ($tipo_archivo == "image/jpeg") {
+
+                        if (file_exists($archivo1)) {
+                            unlink($archivo1);
+                        }
+
+                        $ruta = "$path$filename";
+
+                        $rutanueva = "$path$id$nombreArchivoImg";
+
+                        $nombre = rename("$ruta", "$rutanueva");
+
+                        move_uploaded_file($_FILES['file']['tmp_name'][$i], "documentos/$d/" . $rutanueva);
+
+                        echo $rutanueva;
+
+                        $cookie = $_COOKIE["id"];
+
+                        $c = sqlsrv_connect($serverName, $connectionInfo);
+
+                        $sql = "UPDATE PERMISOS SET archivo1 = '$rutanueva' WHERE permisos_id = '$cookie'";
+
+                        $stmt = sqlsrv_query($conn, $sql);
+                    } else if ($tipo_archivo == "image/png") {
+
+                        if (file_exists($archivo1)) {
+                            unlink($archivo1);
+                        }
+
+                        $ruta = "$path$filename";
+
+                        $rutanueva = "$path$id$nombreArchivoPng";
+
+                        $nombre = rename("$ruta", "$rutanueva");
+
+                        move_uploaded_file($_FILES['file']['tmp_name'][$i], "documentos/$d/" . $rutanueva);
+
+                        echo $rutanueva;
+
+                        $cookie = $_COOKIE["id"];
+
+                        $c = sqlsrv_connect($serverName, $connectionInfo);
+
+                        $sql = "UPDATE PERMISOS SET archivo1 = '$rutanueva' WHERE permisos_id = '$cookie'";
+
+                        $stmt = sqlsrv_query($conn, $sql);
+                    } else {
+
+                        if (file_exists($archivo1)) {
+                            unlink($archivo1);
+                        }
+
+                        $ruta = "$path$filename";
+
+                        $rutanueva = "$path$id$nombreArchivo";
+
+                        $nombre = rename("$ruta", "$rutanueva");
+
+                        move_uploaded_file($_FILES['file']['tmp_name'][$i], "documentos/$d/" . $rutanueva);
+
+                        echo $rutanueva;
+
+                        $cookie = $_COOKIE["id"];
+
+                        $c = sqlsrv_connect($serverName, $connectionInfo);
+
+                        $sql = "UPDATE PERMISOS SET archivo1 = '$rutanueva' WHERE permisos_id = '$cookie'";
+
+                        $stmt = sqlsrv_query($conn, $sql);
+                    }
+                }
+
+
+
+
+
+
+        $d = $_COOKIE["Cedula"];
+
+        $id_user = "$id_usuario";
+
+        $path = "documentos/$id_user/";
+
+        $id = rand(1, 500000);
+
+        $nombreArchivo = "Archivo.pdf";
+        $nombreArchivoImg = "Archivo.jpeg";
+        $nombreArchivoPng = "Archivo.png";
+
+        $countfiles = count($_FILES['file']['name']);
+
+        for ($i = 0; $i < $countfiles; $i++) {
+
+            $filename = $_FILES['file']['name'][$i];
+            $tipo_archivo = $_FILES['file']['type'][$i];
+
+            if (isset($archivo1)) {
+
+                move_uploaded_file($_FILES['file']['tmp_name'][$i], "documentos/$d/" . $filename);
+
+                if ($tipo_archivo == "image/jpeg") {
+                
+                    $ruta = "$path$filename";
+    
+                    $rutanueva = "$path$id$nombreArchivoImg";
+        
+                    $nombre = rename ("$ruta", "$rutanueva");
+    
+                    move_uploaded_file($_FILES['file']['tmp_name'][$i], "documentos/$d/" . $rutanueva);
+    
+                } else if ($tipo_archivo == "image/png") {
+    
+                    $ruta = "$path$filename";
+    
+                    $rutanueva = "$path$id$nombreArchivoPng";
+        
+                    $nombre = rename ("$ruta", "$rutanueva");
+    
+                    move_uploaded_file($_FILES['file']['tmp_name'][$i], "documentos/$d/" . $rutanueva);
+    
+                }else {
+    
+                    $ruta = "$path$filename";
+    
+                    $rutanueva = "$path$id$nombreArchivo";
+        
+                    $nombre = rename ("$ruta", "$rutanueva");
+    
+                    move_uploaded_file($_FILES['file']['tmp_name'][$i], "documentos/$d/" . $rutanueva); 
+    
+                }
+
+            } else if (!is_file($archivo1)) {
+
+                echo "No";
+            }
